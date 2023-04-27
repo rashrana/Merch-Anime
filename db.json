@@ -1,0 +1,114 @@
+{"books": [{
+  "id":1,
+  "title": "A game of thrones",
+  "year": 1996,
+  "published": false
+
+},
+{
+  "id":2,
+  "title": "A storm of Swords",
+  "year": 2000,
+  "published": true
+},
+{
+  "id":3,
+  "title": "A feast for crows",
+  "year": 2005,
+  "published": true
+},
+{
+  "id":4,
+  "title": "A dance with Dragons",
+  "year": 2011,
+  "published": true
+},
+{
+  "id":5,
+  "title": "The winds of winter",
+  "year": 2022,
+  "published": false
+}],
+"merchs" : [
+  {
+    "productId": 1,
+    "productName": "Itachi Podcase",
+    "category": "Airpod case cover",
+    "price": 20.99,
+    "quantity": 50,
+    "image": "https://3dprintfull.com/wp-content/uploads/2022/04/akatsuki-itachi-uchiha-signature-black-crow-airpods-case.jpg"
+  },
+  {
+    "productId": 2,
+    "productName": "Gomu Gomu Devil Fruit Podcase",
+    "category": "Airpod case cover",
+    "price": 20.99,
+    "quantity": 50,
+    "image": "https://cdn.shopify.com/s/files/1/0280/6638/1918/products/product-image-1868101637.jpg?v=1651292571"
+  },
+  {
+    "productId": 3,
+    "productName": "Pikachu Idol",
+    "category": "Car Accessory",
+    "price": 30.99,
+    "quantity": 50,
+    "image": "https://cdn.shopify.com/s/files/1/0555/7187/3987/products/Pikachu1.jpg?v=1680869319&width=700"
+  },
+  {
+    "productId": 4,
+    "productName": "Charmander Idol",
+    "category": "Car Accessory",
+    "price": 28.99,
+    "quantity": 50,
+    "image": "https://ae01.alicdn.com/kf/S903ecb818e4b40c0beaf762e65c9a77fT/Pikachu-parking-sign-Pokemon-car-ornaments-moving-license-plate-cartoon-moving-car-animation-number-plate-decorative.jpg_640x640.jpg"
+  },
+  {
+    "productId": 5,
+    "productName": "Chopper Idol",
+    "category": "Car Accessory",
+    "price": 35.99,
+    "quantity": 50,
+    "image": "https://m.media-amazon.com/images/I/4100xG-l0zL._AC_.jpg"
+  },
+  {
+    "productId": 6,
+    "productName": "Nezuko Idol",
+    "category": "Car Accessory",
+    "price": 25.99,
+    "quantity": 50,
+    "image": "https://i.etsystatic.com/37882257/r/il/ab1346/4235051014/il_1140xN.4235051014_czc7.jpg"
+  },
+  {
+    "productId": 7,
+    "productName": "Kurama Idol",
+    "category": "Car Accessory",
+    "price": 30.99,
+    "quantity": 50,
+    "image": "https://i.ebayimg.com/images/g/tdQAAOSwxU9jo7wf/s-l1600.jpg"
+  },
+  {
+    "productId": 8,
+    "productName": "Naruto Podcase",
+    "category": "Airpod case cover",
+    "price": 20.99,
+    "quantity": 50,
+    "image": "https://i.etsystatic.com/37908994/r/il/81ada9/4663684324/il_794xN.4663684324_facp.jpg"
+  },
+  {
+    "productId": 9,
+    "productName": "Titan Podcase",
+    "category": "Airpod case cover",
+    "price": 20.99,
+    "quantity": 50,
+    "image": "https://ae01.alicdn.com/kf/S3684ee5098d144d891cda4807a39ce444/Air-Pod-Cases-Earphone-Cover-For-Airpods-Case-3D-Attack-on-Titan-Protection-Silicone-Cover-Cute.jpg_Q90.jpg_.webp"
+  },
+  {
+    "productId": 10,
+    "productName": "Kaneki Podcase",
+    "category": "Airpod case cover",
+    "price": 20.99,
+    "quantity": 50,
+    "image": "https://ae01.alicdn.com/kf/Sb1dd0879baee454e995d4ee0c4baa232q/Horrible-Anime-Tokyo-Ghoul-Soft-Black-Case-for-Apple-Airpods-Pro-3-2-1-Pro2-Ken.jpg_Q90.jpg_.webp"
+  }
+]
+}
