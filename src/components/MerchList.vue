@@ -7,7 +7,6 @@
                 <div class="image">
                     <img class="img" :src=merch.image alt="Product Image" />
                 </div>
-                <hr>
                 <div class="description">
                     <h3 class="productName">{{ merch.productName }}</h3>
                     <div class="priceQty">
@@ -25,8 +24,6 @@
     </div>
 </template>
 <script>
-// import MerchCard from './MerchCard.vue'
-// import MerchItem from './MerchItem.vue';
 
 export default {
     name: 'MerchList',
@@ -34,10 +31,6 @@ export default {
         merchs: Array,
         filter: String
     },
-    components: [
-        // MerchItem,
-        // MerchCard
-    ],
     methods: {
         currency(amount) {
             return `$${Number.parseFloat(amount).toFixed(2)}`;
@@ -67,15 +60,17 @@ export default {
     }
     .image {
         height: 70%;
+        border-bottom: 1px solid rgba(22,22,22,0.2);
     }
     .img {
         height: 100%;
         width: 100%;
     }
-    hr {
+    /* hr {
         background-color: rgba(0,0,0,0.2);
         border: none;
-    }
+        height: 1px;
+    } */
     .description {
         height: 30%;
         padding: 3%;

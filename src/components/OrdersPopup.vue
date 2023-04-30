@@ -84,7 +84,10 @@ export default {
 .myModal.open {
     display: block;
 }
-
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+}
 .modal-header * {
     vertical-align: middle;
 }
