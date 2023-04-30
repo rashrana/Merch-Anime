@@ -3,7 +3,7 @@
         <template v-for="merch of merchs" :key="merch.productId">
             <!-- <MerchItem :merch=merch /> -->
             <!-- <MerchCard :merch=merch /> -->
-            <div class="card">
+            <div class="card" v-show="merch.category.includes(filter)">
                 <div class="image">
                     <img class="img" :src=merch.image alt="Product Image" />
                 </div>
@@ -31,7 +31,8 @@
 export default {
     name: 'MerchList',
     props: {
-        merchs: Array
+        merchs: Array,
+        filter: String
     },
     components: [
         // MerchItem,

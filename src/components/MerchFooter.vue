@@ -13,6 +13,7 @@ export default {
     name: 'MerchFooter',
     props: {
         totalAmount: Number,
+        cart: Array
     },
     data() {
         return {
@@ -25,18 +26,41 @@ export default {
         currency(amount) {
             return `$${Number.parseFloat(amount).toFixed(2)}`;
         },
-        openMenu() {
-
-        },
-        placeOrder() {
-            console.log("comp");
+        async placeOrder() {
+            const order = {
+                orderid: new Date().toLocaleDateString(),
+                items: this.cart
+            }
             sharedData.loader = true;
-            setTimeout(() => {
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type" : "application/json", "accept": "*", "Connection": "keep-alive" },
+                body: JSON.stringify(order),
+                // mode: 'no-cors'
+            }
+            // let orderPlaced = false;
+            await fetch("https://merch-anime-nodejs.vercel.app/placeOrder", requestOptions).then((response) => {
+                response.json();
+            }).then(data => {
+                console.log(data);
                 sharedData.loader = false;
-            }, 2000);
+                this.showDialog = true;
+                // orderPlaced = true;
+            }).catch(e => {
+                console.log("Error while placing order!", e);
+                sharedData.loader = false;
+            });
+            // if(orderPlaced) {
+            // }
+            
         },
         closePopup() {
             this.showDialog = false;
+            sharedData.loader = true;
+            setTimeout(() => {
+                this.$emit('orderPlaced');
+                sharedData.loader = false;
+            }, 2000);
         }
     },
     components: {

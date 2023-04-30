@@ -1,10 +1,23 @@
 <template>
+  <v-app>
+      <v-content>
 
-    <MerchHeader :cart="cart" class="myHeader" />
+      
+    <MerchHeader @handleSideBar="handleSideBar" :cart="cart" class="myHeader" />
+    <SideNavBar  :orders="orders" v-show="showSideBar" class="side-bar"/>
+    <div class="category-container">
+      <select name="category" id="category-filter" @change="filterChange">
+        <option value="">--Select Category--</option>
+        <template v-for="(cat, ind) of category" :key="ind">
+          <option :value="cat.value">{{ cat.key }}</option>
+        </template>
+      </select>
+    </div>
     <MerchList
       @addToCart="addToCart"
       @removeFromcart="removeFromcart"
       :merchs="merchs"
+      :filter=filter
     />
 
     <LoaderComponent v-show="loader()"/>
@@ -12,6 +25,8 @@
       v-show="calculateAmount() > 0"
       class="myFooter"
       :totalAmount="totalAmount"
+      :cart=cart
+      @orderPlaced="orderPlaced"
     />
     <head>
       <link
@@ -19,20 +34,8 @@
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
     </head>
-    <!--Step 3 use the component-->
-    <!-- <template v-for="book,index in books" :key=index>
-    <h3> {{ index + ". " + book.title }}</h3>
-  </template> 
-  <div v-if="meal == 'breakfast'">Gwacomolli</div>
-  <div v-else-if="meal == 'lunch'">Pulao</div>
-  <div v-else-if="meal == 'dinner'">Chicken Curry</div>
-  <div v-else>Nice Snacks</div>
-  <div v-show="show">I'm hidden</div>
-  
-  <img v-bind:src=wallpaper :alt="alternate"/>
-  <MyHeader bookName="Game of Thrones" authorName="George RR Martins" yourName="Prashant Rana"/> 
-  <BookBox :books=books />
-  -->
+  </v-content>
+  </v-app>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -40,59 +43,56 @@
 </template>
 
 <script>
-// Step: 1 Import the components
-// import MyHeader from './components/MyHeader.vue'
-// import BookBox from './components/BookBox.vue'
 import MerchHeader from "./components/MerchHeader.vue";
 import MerchList from "./components/MerchList.vue";
 import MerchFooter from "./components/MerchFooter.vue";
 import LoaderComponent from "./components/LoaderComponent.vue";
+import SideNavBar from "./components/SideNavBar.vue";
 import * as data from "./shared/SharedData";
 
 export default {
   name: "App",
-  // Step 2: Register the components
   components: {
     MerchHeader,
     MerchList,
     MerchFooter,
+    SideNavBar,
     LoaderComponent
-    // MyHeader,
-    // BookBox
   },
   computed: {
     
   },
   data() {
     return {
-      books: [],
-      wallpaper: require("./assets/wallpaper.jpg"),
-      alternate: "Wallpaper",
-      meal: "lunch",
+      category: [
+        {key:"Airpod case cover", value:"Airpod case cover"},
+        {key:"Car Accessory", value:"Car Accessory"}
+      ],
+      filter: "",
+      filtered: [],
       show: "",
       totalAmount: 0,
       merchs: [],
-      cart: []
+      cart: [],
+      orders: [],
+      showSideBar: false
     };
   },
-  updated() {
-    console.log(this.loader);
-  },
-  // created() {
-  //   fetch('https://upadhayay.github.io/db.json').then((response) => {
-  //     return response.json();
-  //   }).then((data) => {
-  //     this.books = data.books;
-  //     console.log(this.books);
-  //   })
-  // },
   methods: {
-    //promoises
     async fetchMerchs() {
-      const res = await fetch("http://localhost:5960/merchs");
+      this.showLoader();
+      const res = await fetch("https://merch-anime-node.vercel.app/api");
       const data = await res.json();
-      // console.log(data)
+      this.hideLoader();
       return data;
+    },
+    async getOrders() {
+      this.showLoader();
+      const res = await fetch("https://merch-anime-nodejs.vercel.app/getOrder");
+      const data = await res.json();
+      this.hideLoader();
+      return data;
+      
     },
     addToCart(merch) {
       const mItem = this.cart.find((item) => {
@@ -102,7 +102,6 @@ export default {
       if (mItem == null) {
         this.cart.push(merch);
       }
-      console.log(this.cart);
     },
     removeFromcart(merch) {
       const mItem = this.cart.findIndex((item) => {
@@ -114,7 +113,6 @@ export default {
       } else if (merch.qty > 1 && mItem != -1) {
         merch.qty -= 1;
       }
-      console.log(this.cart);
     },
     calculateAmount() {
       this.totalAmount = this.cart.reduce(
@@ -131,7 +129,21 @@ export default {
     },
     loader() {
       return data.sharedData.loader;
-    }
+    },
+    async orderPlaced() {
+      this.cart.forEach((merch) => {
+        merch.qty = 0;
+      })
+      this.cart = [];
+      this.orders = await this.getOrders();
+      this.orders = this.orders.reverse();
+    },
+    handleSideBar() {
+      this.showSideBar = !this.showSideBar;
+    },
+    filterChange(event) {
+      this.filter = event.target.value;
+    },
   },
   watch: {
     cart: function () {
@@ -143,11 +155,13 @@ export default {
   },
   async created() {
     this.merchs = await this.fetchMerchs();
+    this.merchs.forEach(merch => {
+      merch.qty = 0;
+    });
+    this.orders = await this.getOrders();
+    this.orders = this.orders.reverse();
   },
 
-  // data() => this.data books
-  // method => this.method => fetchbook
-  // life cycle hooks created() => call our method here
 };
 </script>
 
@@ -167,6 +181,18 @@ body {
   box-shadow: 5px -6px 20px rgba(22, 22, 22, 0.2);
 }
 
+.category-container {
+  margin: 1.5rem;
+}
+#category-filter {
+  width: 30%;
+    height: 40px;
+    background: white;
+    border: 1px solid rgba(22,22,22,0.2);
+    border-radius: 5px;
+}
+
+
 .myFooter {
   position: sticky;
   bottom: 0;
@@ -185,5 +211,24 @@ body {
 
 div {
   margin-bottom: 0.5em;
+}
+
+span {
+  cursor: pointer;
+}
+
+.side-bar {
+  position: fixed;
+  float: left;
+  height: 100vh;
+  width: 20vw;
+  background-color: white;
+  z-index: 0;
+  box-shadow: 5px 2px 20px rgba(22,22,22,0.2);
+}
+@media (max-width: 700px) {
+  .side-bar {
+    width: 50vw;
+  }
 }
 </style>

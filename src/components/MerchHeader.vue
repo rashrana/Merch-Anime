@@ -1,7 +1,7 @@
 <template>
   <nav id="navBar" class="nav">
     <div class="burger">
-      <a href="javascript:void(0);" @click="openMenu()"
+      <a href="javascript:void(0);" @click="$emit('handleSideBar')"
         ><span class="material-icons">menu</span></a
       >
     </div>
@@ -71,6 +71,7 @@ export default {
   position: sticky;
     top: 0;
     background: white;
+    z-index: 10;
 }
 #navBar .burger,
 #navBar .navItem {
