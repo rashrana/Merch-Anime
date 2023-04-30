@@ -1,8 +1,7 @@
 <template>
-  <v-app>
-      <v-content>
-
-      
+     <head>
+      <title>Merch-Anime</title>
+     </head>
     <MerchHeader @handleSideBar="handleSideBar" :cart="cart" class="myHeader" />
     <SideNavBar  :orders="orders" v-show="showSideBar" class="side-bar"/>
     <div class="category-container">
@@ -34,8 +33,6 @@
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />
     </head>
-  </v-content>
-  </v-app>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"

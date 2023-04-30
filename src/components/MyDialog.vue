@@ -2,7 +2,7 @@
     <div id="exampleModalLong" v-show="visible" class="myModal myModal-open">
         <div class="modal-content">
             <div class="modal-header">
-                <span>{{ title }}</span>
+                <h2>{{ title }}</h2>
                 <span class="material-icons" @click="$emit('closePopup')">close</span>
             </div>
             <hr class="separator">
