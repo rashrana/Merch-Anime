@@ -121,6 +121,14 @@ export default {
     font-weight: 600;
     float: right;
 }
-
+@media (max-width: 1000px) {
+  .myModal {
+    height: fit-content !important;
+    min-height: fit-content !important;
+    max-height: 90vh;
+    width: fit-content !important;
+    min-width: 90vw !important;
+  }
+}
 </style>
 

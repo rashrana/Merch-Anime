@@ -34,7 +34,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 .myModal {
     /* modals are hidden by default */
@@ -79,6 +79,17 @@ export default {
     position: relative;
     margin-top: 20px;
     margin-bottom: 30px;
+}
+
+
+@media (max-width: 1000px) {
+  .myModal {
+    height: fit-content !important;
+    min-height: fit-content !important;
+    max-height: 90vh;
+    width: fit-content !important;
+    min-width: 90vw !important;
+  }
 }
 </style>
 
